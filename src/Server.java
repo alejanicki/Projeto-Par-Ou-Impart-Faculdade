@@ -29,7 +29,9 @@ public class Server {
 
             // Jogar Par ou Impar c/ máquina
             if (playerOneGameMode.equals("s")) {
-
+                int countEmpate = 0;
+                int countPlayerOneWins = 0;
+                int countPlayerTwoWins = 0;
                 while (true) {
                     PlayerOneOut.println("Jogador 1, escolha um numero de 0 a 5: ");
                     int PlayerOneNum = Integer.parseInt(PlayerOneIn.readLine());
@@ -59,20 +61,28 @@ public class Server {
                     if (PlayerOneChoice.contentEquals(randomLetter)) {
                         PlayerOneOut.println("Empatou");
                         System.out.println("Empatou");
+                        countEmpate++;
                     } else if ((PlayerOneChoice.equals("p") && isResultEven)
                             || (PlayerOneChoice.equals("i") && !isResultEven)) {
                         PlayerOneOut.println("Jogador 1 venceu!");
                         System.out.println("Jogador 1 venceu!");
+                        countPlayerOneWins++;
                     } else {
                         PlayerOneOut.println("Jogador 2 venceu!");
                         System.out.println("Jogador 2 venceu!");
+                        countPlayerTwoWins++;
                     }
 
                     PlayerOneOut.println("Deseja jogar novamente? (s/n): ");
                     String PlayerOneReset = PlayerOneIn.readLine();
 
                     if (PlayerOneReset.equals("n")) {
+                        PlayerOneOut.println("Jogador 1 vitórias: " + countPlayerOneWins + ", Máquina vitórias: "
+                                + countPlayerTwoWins + ", Empates: " + countEmpate);
+                        System.out.println("Jogador 1 vitórias: " + countPlayerOneWins + ", Máquina vitórias: "
+                                + countPlayerTwoWins + ", Empates: " + countEmpate);
                         PlayerOneOut.println("FIM");
+                        System.out.println("Jogador encerrou o jogo");
                         break;
                     }
                 }
@@ -89,6 +99,9 @@ public class Server {
             PrintWriter PlayerTwoOut = new PrintWriter(PlayerTwoSocket.getOutputStream(), true);
 
             // Jogar Par ou Impar c/ dois jogadores
+            int countEmpate = 0;
+            int countPlayerOneWins = 0;
+            int countPlayerTwoWins = 0;
             while (true) {
                 PlayerOneOut.println("Jogador 1, escolha um numero de 0 a 5: ");
                 int PlayerOneNum = Integer.parseInt(PlayerOneIn.readLine());
@@ -122,13 +135,16 @@ public class Server {
                 if (PlayerOneChoice.contentEquals(PlayerTwoChoice)) {
                     PlayerOneOut.println("Empatou");
                     PlayerTwoOut.println("Empatou");
+                    countEmpate++;
                 } else if ((PlayerOneChoice.equals("p") && isResultEven)
                         || (PlayerOneChoice.equals("i") && !isResultEven)) {
                     PlayerOneOut.println("Jogador 1 venceu!");
                     PlayerTwoOut.println("Jogador 1 venceu!");
+                    countPlayerOneWins++;
                 } else {
                     PlayerOneOut.println("Jogador 2 venceu!");
                     PlayerTwoOut.println("Jogador 2 venceu!");
+                    countPlayerTwoWins++;
                 }
 
                 PlayerOneOut.println("Deseja jogar novamente? (s/n): ");
@@ -138,8 +154,15 @@ public class Server {
                 String PlayerTwoReset = PlayerTwoIn.readLine();
 
                 if ((PlayerOneReset.equals("n")) || (PlayerTwoReset.equals("n"))) {
+                    PlayerOneOut.println("Jogador 1 vitórias: " + countPlayerOneWins + ", Jogador 2 vitórias: "
+                            + countPlayerTwoWins + ", Empates: " + countEmpate);
+                    PlayerTwoOut.println("Jogador 1 vitórias: " + countPlayerOneWins + ", Jogador 2 vitórias: "
+                            + countPlayerTwoWins + ", Empates: " + countEmpate);
+                    System.out.println("Jogador 1 vitórias: " + countPlayerOneWins + ", Jogador 2 vitórias: "
+                            + countPlayerTwoWins + ", Empates: " + countEmpate);
                     PlayerOneOut.println("FIM");
                     PlayerTwoOut.println("FIM");
+                    System.out.println("Jogador encerrou o jogo");
                     break;
                 }
             }

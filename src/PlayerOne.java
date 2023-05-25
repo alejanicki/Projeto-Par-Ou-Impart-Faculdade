@@ -66,6 +66,11 @@ public class PlayerOne {
 
                 // Valida saida
                 if (playAgain == "n") {
+                    // Recebe "Resultados gerais"
+                    serverMessage = in.readLine();
+                    System.out.println(serverMessage);
+
+                    // Recebe "Fim"
                     serverMessage = in.readLine();
                     System.out.println(serverMessage);
                     break;
